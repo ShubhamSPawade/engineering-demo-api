@@ -83,6 +83,8 @@ The scoped audit verified both required sections on ST-1754 before this policy w
 
 ## Advisory AI review
 
+The required ticket check also rejects cancelled cards and unresolved native blocked-by dependencies. Prerequisites must be completed, accessible and unarchived in the registered demo scope. Card edits currently require a workflow rerun or new PR commit; automatic reconciliation remains planned. See [the lifecycle policy](https://github.com/ShubhamSPawade/engineering-platform/blob/9fb7234371a9107708b16e2a74645f8b5204abac/docs/superthread-lifecycle-policy.md).
+
 PR-Agent reviews text patches with Gemini and posts one advisory comment. The model job executes approved reviewer code and receives no GitHub or Superthread token. A separate publisher checks the PR commit before updating the comment. It does not apply suggestions, approve, merge, deploy, or complete cards.
 
 The configured model is Gemini 3.1 Flash-Lite, selected after Gemini 3.8 Flash inference timeouts. The existing Gemini API key is reused. Free-tier availability depends on the project's access and quota; a model metadata response alone is insufficient to declare review readiness.
