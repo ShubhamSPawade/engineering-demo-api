@@ -81,6 +81,8 @@ PRs into `dev`, `staging`, and `main` also use the trusted Superthread ticket po
 
 PR-Agent reviews text patches with Gemini and posts one advisory comment. The model job executes approved reviewer code and receives no GitHub or Superthread token. A separate publisher checks the PR commit before updating the comment. It does not apply suggestions, approve, merge, deploy, or complete cards.
 
+The configured model is Gemini 3.1 Flash-Lite, selected after Gemini 3.8 Flash inference timeouts. The existing Gemini API key is reused. Free-tier availability depends on the project's access and quota; a model metadata response alone is insufficient to declare review readiness.
+
 Check AI findings against the actual code and tests. Missing credentials, free-tier quota limits, unsupported input or inference failures produce an unavailable result; required CI, security and ticket checks still determine merge eligibility. The pilot reviews at most 40 files and 50,000 diff bytes, and discloses omitted files without text patches. It has no automated access to card acceptance criteria yet.
 
 When a review is unavailable, inspect the Advisory AI Review run for its safe failure category or provider HTTP status. Correct provider access or wait for free quota to recover, then rerun the workflow while the same PR commit remains open. Keep billing disabled. A new commit automatically starts a fresh review; results for an older commit are not published onto the newer one.
