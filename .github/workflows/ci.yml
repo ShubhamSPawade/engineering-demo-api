@@ -28,10 +28,10 @@ jobs:
       smoke-command: node scripts/smoke.mjs dist/src/server.mjs
       container-build: true
   shared-security:
-    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-security.yml@e2ade6e2c989cfe3afb3c667d22fe3d177360602
+    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-security.yml@6ec8e9f61f9e19644852b6d407aa6de630cb4f1e
     with:
       policy-repository: ShubhamSPawade/engineering-platform
-      policy-ref: e2ade6e2c989cfe3afb3c667d22fe3d177360602
+      policy-ref: 6ec8e9f61f9e19644852b6d407aa6de630cb4f1e
   verify:
     name: demo-verify
     needs: [shared-ci, shared-security]
