@@ -65,7 +65,7 @@ Do not commit this nested repository into the platform repository. Set the appli
 
 `demo-verify` runs syntax checks, API/configuration tests, packaging, a real-process smoke check of the packaged runtime, and a Docker build. CI uses read-only permissions, timeouts, cancellation for superseded checks, and commit-pinned checkout/setup actions. Register `demo-verify` as a required check after its first successful run.
 
-The workflow calls commit-pinned Node CI and security workflows from `ShubhamSPawade/engineering-platform`. Security checks include Gitleaks, OSV dependency inventory checks, and Semgrep. The required `demo-verify` gate succeeds only when both shared workflows succeed. Superthread validation, AI review, image publishing, and hosted deployment are future integration steps.
+The workflow calls commit-pinned Node CI and security workflows from `ShubhamSPawade/engineering-platform`. Security checks include Gitleaks, OSV dependency inventory checks, and Semgrep. The required `demo-verify` gate succeeds only when both shared workflows succeed. Superthread ticket validation is also required. Advisory AI review is installed; image publishing and hosted deployment remain future integration steps.
 
 ## Superthread PR linking pilot
 
@@ -82,6 +82,8 @@ PRs into `dev`, `staging`, and `main` also use the trusted Superthread ticket po
 PR-Agent reviews text patches with Gemini and posts one advisory comment. The model job executes approved reviewer code and receives no GitHub or Superthread token. A separate publisher checks the PR commit before updating the comment. It does not apply suggestions, approve, merge, deploy, or complete cards.
 
 Check AI findings against the actual code and tests. Missing credentials, free-tier quota limits, unsupported input or inference failures produce an unavailable result; required CI, security and ticket checks still determine merge eligibility. The pilot reviews at most 40 files and 50,000 diff bytes, and discloses omitted files without text patches. It has no automated access to card acceptance criteria yet.
+
+When a review is unavailable, inspect the Advisory AI Review run for its safe failure category or provider HTTP status. Correct provider access or wait for free quota to recover, then rerun the workflow while the same PR commit remains open. Keep billing disabled. A new commit automatically starts a fresh review; results for an older commit are not published onto the newer one.
 
 For an initial test PR, branch from dev, change the greeting default and its test together, and open a PR into dev. To verify a failing check blocks merges, temporarily change behavior without updating the test in a separate sandbox PR.
 
