@@ -1,0 +1,23 @@
+name: Advisory AI Review
+
+on:
+  pull_request_target:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches: [dev, staging, main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: advisory-ai-review-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  review:
+    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-advisory-ai-review.yml@2b6bdd7cc0dee0ce125c11b16b0cb8a7a4c3b0d6
+    with:
+      policy-repository: ShubhamSPawade/engineering-platform
+      policy-ref: 2b6bdd7cc0dee0ce125c11b16b0cb8a7a4c3b0d6
+    secrets:
+      PR_AGENT_GEMINI_KEY: ${{ secrets.PR_AGENT_GEMINI_KEY }}
