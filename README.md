@@ -79,6 +79,8 @@ PRs into `dev`, `staging`, and `main` also use the trusted Superthread ticket po
 
 Cards must also contain exactly one non-empty **Acceptance criteria** section and one non-empty **Test plan** section in their description. Markdown headings and standalone labels in plain text or HTML are supported. Blank markup and placeholder-only sections do not pass. This verifies structural readiness; fulfillment of the criteria still needs tests and review. Card edits alone do not trigger the GitHub workflow: rerun ticket validation or push a new commit after editing a card.
 
+The scoped audit verified both required sections on ST-1754 before this policy was adopted. At validation time, the required check verifies scope and section readiness together. A successful result does not prove the criteria have been fulfilled or that the application has reached production; completion remains a separate deployment milestone.
+
 ## Advisory AI review
 
 PR-Agent reviews text patches with Gemini and posts one advisory comment. The model job executes approved reviewer code and receives no GitHub or Superthread token. A separate publisher checks the PR commit before updating the comment. It does not apply suggestions, approve, merge, deploy, or complete cards.
