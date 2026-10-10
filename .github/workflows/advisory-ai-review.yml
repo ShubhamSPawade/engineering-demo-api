@@ -15,9 +15,9 @@ concurrency:
 
 jobs:
   review:
-    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-advisory-ai-review.yml@2b6bdd7cc0dee0ce125c11b16b0cb8a7a4c3b0d6
+    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-advisory-ai-review.yml@4f594a83fdf931809be0e607791648d834db6822
     with:
       policy-repository: ShubhamSPawade/engineering-platform
-      policy-ref: 2b6bdd7cc0dee0ce125c11b16b0cb8a7a4c3b0d6
+      policy-ref: 4f594a83fdf931809be0e607791648d834db6822
     secrets:
       PR_AGENT_GEMINI_KEY: ${{ secrets.PR_AGENT_GEMINI_KEY }}
