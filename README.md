@@ -65,7 +65,15 @@ Do not commit this nested repository into the platform repository. Set the appli
 
 `demo-verify` runs syntax checks, API/configuration tests, packaging, a real-process smoke check of the packaged runtime, and a Docker build. CI uses read-only permissions, timeouts, cancellation for superseded checks, and commit-pinned checkout/setup actions. Register `demo-verify` as a required check after its first successful run.
 
-This initial workflow is standalone so it can run before the shared platform workflows exist. It does not yet enforce Superthread validation, run security scanners or AI review, publish images, or deploy to a hosted environment. Those are the next platform integration steps.
+The workflow calls commit-pinned Node CI and security workflows from `ShubhamSPawade/engineering-platform`. Security checks include Gitleaks, OSV dependency inventory checks, and Semgrep. The required `demo-verify` gate succeeds only when both shared workflows succeed. Superthread validation, AI review, image publishing, and hosted deployment are future integration steps.
+
+## Superthread PR linking pilot
+
+The pilot uses only the **Engineering Demo** board in the **test-demo** space. Its first integration card is [ST-1754: Test GitHub PR integration](https://app.superthread.com/cardtree/card-1754-test-github-pr-integration).
+
+Include the card reference in the feature branch name and PR title, and put the full card URL in the PR description. For example, use `chore/ST-1754-test-github-pr-integration` and open the PR into `dev`. With the native GitHub integration connected, confirm that the card displays the PR link and status.
+
+Passing GitHub checks verifies CI. Confirm the link in Superthread separately before declaring the integration successful. A merge into `dev` represents integration of the change; completion must wait for successful production deployment.
 
 For an initial test PR, branch from dev, change the greeting default and its test together, and open a PR into dev. To verify a failing check blocks merges, temporarily change behavior without updating the test in a separate sandbox PR.
 
