@@ -75,6 +75,8 @@ Include the card reference in the feature branch name and PR title, and put the 
 
 Passing GitHub checks verifies CI. Confirm the link in Superthread separately before declaring the integration successful. A merge into `dev` represents integration of the change; completion must wait for successful production deployment.
 
+PRs into `dev`, `staging`, and `main` also use the trusted Superthread ticket policy. Include exactly one `ST-<card ID>` in the PR title and one matching full card URL in its description. The card must be active and belong to Engineering Demo in test-demo. The `superthread-ticket` status fails on missing or conflicting references, wrong membership, archived resources, or API errors. Editing PR metadata or pushing a new commit reruns validation. The credential is used only by pinned platform code, which never checks out application PR code.
+
 For an initial test PR, branch from dev, change the greeting default and its test together, and open a PR into dev. To verify a failing check blocks merges, temporarily change behavior without updating the test in a separate sandbox PR.
 
 References: [Node test runner](https://nodejs.org/docs/latest-v24.x/api/test.html), [checkout release](https://github.com/actions/checkout/releases/tag/v7.0.1), [setup-node release](https://github.com/actions/setup-node/releases/tag/v7.1.0).
