@@ -16,9 +16,9 @@ concurrency:
 
 jobs:
   ticket:
-    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-superthread-ticket.yml@aea318db3ebbd300d8db5ea09efbcd57995d978c
+    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-superthread-ticket.yml@9fb7234371a9107708b16e2a74645f8b5204abac
     with:
       policy-repository: ShubhamSPawade/engineering-platform
-      policy-ref: aea318db3ebbd300d8db5ea09efbcd57995d978c
+      policy-ref: 9fb7234371a9107708b16e2a74645f8b5204abac
     secrets:
       SUPERTHREAD_API_TOKEN: ${{ secrets.SUPERTHREAD_API_TOKEN }}
