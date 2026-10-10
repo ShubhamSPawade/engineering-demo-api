@@ -1,0 +1,43 @@
+name: Demo CI
+
+on:
+  pull_request:
+    branches: [dev, staging, main]
+  push:
+    branches: [dev, staging, main]
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: demo-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: demo-verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+      - name: Check syntax
+        run: npm run check
+      - name: Test API and configuration
+        run: npm test
+      - name: Package runtime
+        run: npm run build
+        env:
+          APP_COMMIT: ${{ github.sha }}
+      - name: Smoke test packaged runtime
+        run: node scripts/smoke.mjs dist/src/server.mjs
+      - name: Build container
+        run: docker build --build-arg VCS_REF="$GITHUB_SHA" --tag engineering-demo-api:ci .
+
