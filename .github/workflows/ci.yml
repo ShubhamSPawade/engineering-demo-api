@@ -11,6 +11,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: read
 
 concurrency:
   group: demo-ci-${{ github.event.pull_request.number || github.ref }}
@@ -28,10 +29,10 @@ jobs:
       smoke-command: node scripts/smoke.mjs dist/src/server.mjs
       container-build: true
   shared-security:
-    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-security.yml@6ec8e9f61f9e19644852b6d407aa6de630cb4f1e
+    uses: ShubhamSPawade/engineering-platform/.github/workflows/reusable-security.yml@53497cd2240b70c8c286a9d4e1a61882d6bfe057
     with:
       policy-repository: ShubhamSPawade/engineering-platform
-      policy-ref: 6ec8e9f61f9e19644852b6d407aa6de630cb4f1e
+      policy-ref: 53497cd2240b70c8c286a9d4e1a61882d6bfe057
   verify:
     name: demo-verify
     needs: [shared-ci, shared-security]
