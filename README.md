@@ -77,6 +77,12 @@ Passing GitHub checks verifies CI. Confirm the link in Superthread separately be
 
 PRs into `dev`, `staging`, and `main` also use the trusted Superthread ticket policy. Include exactly one `ST-<card ID>` in the PR title and one matching full card URL in its description. The card must be active and belong to Engineering Demo in test-demo. The `superthread-ticket` status fails on missing or conflicting references, wrong membership, archived resources, or API errors. Editing PR metadata or pushing a new commit reruns validation. The credential is used only by pinned platform code, which never checks out application PR code.
 
+## Advisory AI review
+
+PR-Agent reviews text patches with Gemini and posts one advisory comment. The model job executes approved reviewer code and receives no GitHub or Superthread token. A separate publisher checks the PR commit before updating the comment. It does not apply suggestions, approve, merge, deploy, or complete cards.
+
+Check AI findings against the actual code and tests. Missing credentials, free-tier quota limits, unsupported input or inference failures produce an unavailable result; required CI, security and ticket checks still determine merge eligibility. The pilot reviews at most 40 files and 50,000 diff bytes, and discloses omitted files without text patches. It has no automated access to card acceptance criteria yet.
+
 For an initial test PR, branch from dev, change the greeting default and its test together, and open a PR into dev. To verify a failing check blocks merges, temporarily change behavior without updating the test in a separate sandbox PR.
 
 References: [Node test runner](https://nodejs.org/docs/latest-v24.x/api/test.html), [checkout release](https://github.com/actions/checkout/releases/tag/v7.0.1), [setup-node release](https://github.com/actions/setup-node/releases/tag/v7.1.0).
