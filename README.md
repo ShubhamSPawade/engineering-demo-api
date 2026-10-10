@@ -85,6 +85,8 @@ Check AI findings against the actual code and tests. Missing credentials, free-t
 
 When a review is unavailable, inspect the Advisory AI Review run for its safe failure category or provider HTTP status. Correct provider access or wait for free quota to recover, then rerun the workflow while the same PR commit remains open. Keep billing disabled. A new commit automatically starts a fresh review; results for an older commit are not published onto the newer one.
 
+Operators can temporarily enable the repository variable `PR_AGENT_DIAGNOSE_PROVIDER=true` to distinguish reviewer transport failures from provider inference failures. After a failed review it makes one bounded diagnostic request containing no PR data; restore the variable to false after the test. Model metadata access alone does not prove that inference works.
+
 For an initial test PR, branch from dev, change the greeting default and its test together, and open a PR into dev. To verify a failing check blocks merges, temporarily change behavior without updating the test in a separate sandbox PR.
 
 References: [Node test runner](https://nodejs.org/docs/latest-v24.x/api/test.html), [checkout release](https://github.com/actions/checkout/releases/tag/v7.0.1), [setup-node release](https://github.com/actions/setup-node/releases/tag/v7.1.0).
